@@ -18,11 +18,9 @@ html {
 }
 
 body {
-  overflow-x: hidden;
+  // overflow-x: hidden;
    scrollbar-color: rgb(98 84 243);
     scrollbar-width: thin;
-    font-family: ${({ theme }) => theme.tab || 'sans-serif'};
-    background-color: ${({ theme }) => theme.colors?.background || '#f0f0f0'};
 }
 
 body::-webkit-scrollbar {
@@ -40,6 +38,14 @@ body::-webkit-scrollbar-thumb {
     border-radius: 9px;
     background-clip: content-box;
 }
+
+#root{
+    display: flex
+;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5rem;
+    }
 
 h1,
 h2,
@@ -94,6 +100,9 @@ ${"" /* resuable code section  */}
 .grid {
   display: grid;
   gap: 9rem;
+      justify-items: center;
+      
+
 }
 
 .grid-two-column {
@@ -159,17 +168,17 @@ input, textarea{
     cursor: pointer;
     }
 
-// @media (max-width: ${({ theme }) => theme.media.tab}) {
-//     .container {
-//     max-width: 130rem;
-//     padding: 0 3.2rem;
-//   }
-//   }
+@media (max-width: ${({ theme }) => theme.media.tab}) {
+    .container {
+    max-width: 130rem;
+    padding: 0 3.2rem;
+  }
+  }
 
-//    @media (max-width: ${({ theme }) => theme.media.mobile}) {
-//        html {
-//       font-size: 50%;
-//     }
+   @media (max-width: ${({ theme }) => theme.media.mobile}) {
+       html {
+      font-size: 50%;
+    }
 
 .grid{
   gap: 3.2rem;
