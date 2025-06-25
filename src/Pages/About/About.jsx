@@ -27,7 +27,7 @@ const About = () => {
   const { isLoading, isError, products, featureProducts } = useProductContext();
 
   const data = {
-    name: "Priyanka - Ecommerce",
+    name: " The Website",
   };
 
   return (
