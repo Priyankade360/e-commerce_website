@@ -20,17 +20,12 @@ const filterReducer = (state, action) => {
       };
 
     case "GET_SORT_VALUE":
-      // let userSortValue = document.getElementById("sort");
-      // let sort_value = userSortValue.options[userSortValue.selectedIndex].value;
       return {
         ...state,
         sorting_value: action.payload,
       };
 
-    case "SORTING_PRODUCTS":
-      let newSortData;
-      // let tempSortProduct = [...action.payload];
-
+    case "SORTING_PRODUCTS": {
       const { filter_products, sorting_value } = state;
       let tempSortProduct = [...filter_products];
 
@@ -50,18 +45,20 @@ const filterReducer = (state, action) => {
         if (sorting_value === "z-a") {
           return b.name.localeCompare(a.name);
         }
+
+        return 0; 
       };
 
-      newSortData = tempSortProduct.sort(sortingProducts);
+      const newSortData = tempSortProduct.sort(sortingProducts);
 
       return {
         ...state,
         filter_products: newSortData,
       };
+    }
 
-    case "UPDATE_FILTERS_VALUE":
+    case "UPDATE_FILTERS_VALUE": {
       const { name, value } = action.payload;
-
       return {
         ...state,
         filters: {
@@ -69,34 +66,31 @@ const filterReducer = (state, action) => {
           [name]: value,
         },
       };
+    }
 
-    case "FILTER_PRODUCTS":
-      let { all_products } = state;
-      let tempFilterProduct = [...all_products];
-
+    case "FILTER_PRODUCTS": {
+      const { all_products } = state;
       const { text, category, company } = state.filters;
 
+      let tempFilterProduct = [...all_products];
+
+      // ✅ Fix: Convert search text to lowercase
       if (text) {
-        tempFilterProduct = tempFilterProduct.filter((curElem) => {
-          return curElem.name.toLowerCase().includes(text);
-        });
+        tempFilterProduct = tempFilterProduct.filter((curElem) =>
+          curElem.name.toLowerCase().includes(text.toLowerCase())
+        );
       }
 
-      if (category) {
-        tempFilterProduct = tempFilterProduct.filter((curElem) => {
-          return curElem.category === category;
-        });
+      
+      if (category !== "all") {
+        tempFilterProduct = tempFilterProduct.filter(
+          (curElem) => curElem.category === category
+        );
       }
-
-      // if (company) {
-      //   tempFilterProduct = tempFilterProduct.filter((curElem) => {
-      //     return curElem.company === company;
-      //   });
-      // }
 
       if (company !== "all") {
         tempFilterProduct = tempFilterProduct.filter(
-          (c) => c.company === company
+          (curElem) => curElem.company === company
         );
       }
 
@@ -104,6 +98,7 @@ const filterReducer = (state, action) => {
         ...state,
         filter_products: tempFilterProduct,
       };
+    }
 
     default:
       return state;
